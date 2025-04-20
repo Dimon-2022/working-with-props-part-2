@@ -2,10 +2,10 @@ import React from "react";
 import "./index.css";
 
 //Rus
-// 1 - Создать динамически столько компонентов Card, сколько объектов в массиве с данными.
-// 2 - Использовать данные массива для передачи значений в пропсы компонентов.
-// 3 - Создать динамически теги на основе массива с тегами.
-// 4 - Использовать условный рендеринг для проверки свойства archived. Если archived: true, карточка не будет рендериться.
+// 1 - Создать динамически столько компонентов Card, сколько объектов в массиве с данными. +++
+// 2 - Использовать данные массива для передачи значений в пропсы компонентов. ++++
+// 3 - Создать динамически теги на основе массива с тегами. ++++
+// 4 - Использовать условный рендеринг для проверки свойства archived. Если archived: true, карточка не будет рендериться.+++
 
 //Eng
 // 1 - Dynamically create as many Card components as there are objects in the data array.
@@ -65,3 +65,51 @@ const cardData = [
   },
 ];
 
+export default function App() {
+  return (
+    <>
+      <h1>Blog</h1>
+      <CardContainer />
+    </>
+  );
+}
+
+function CardContainer() {
+  return (
+    <div className="card-container">
+      {cardData.map(
+        (item, index) => !item.archived && <Card cardObj={item} key={index} />
+      )}
+    </div>
+  );
+}
+
+function Card({ cardObj }) {
+  const { imageUrl, title, description, date, tags } = cardObj;
+
+  return (
+    <div className="card">
+      <img className="card-image" src={imageUrl} alt={title} />
+      <div className="card-content">
+        <h3 className="card-title">{title}</h3>
+        <p className="card-description">{description}</p>
+        <p className="card-date">{date}</p>
+        <CardTags tags={tags} />
+      </div>
+    </div>
+  );
+}
+
+function CardTags({ tags }) {
+  return (
+    <div className="card-tags">
+      {tags.map((tag) => (
+        <CardTag key={tag} name={tag} />
+      ))}
+    </div>
+  );
+}
+
+function CardTag({ name }) {
+  return <span className="card-tag">{name}</span>;
+}
